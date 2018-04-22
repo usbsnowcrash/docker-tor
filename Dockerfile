@@ -21,6 +21,8 @@ RUN apk add -U --virtual deps \
     make install && \
     rm -rf ~/* && \
     apk del --purge deps && \
+    cp /opt/tor/etc/tor/torrc.sample /opt/tor/etc/tor/torrc && \
+    sed -i 's/#SOCKSPort 9050/SOCKSPort 0.0.0.0:9050/' /opt/tor/etc/tor/torrc && \
     chown tor:tor -R /opt/*
 
-CMD /bin/ash -c 'su - -s /bin/ash -c "/opt/tor/bin/tor"'
+CMD /bin/ash -c 'su - -s /bin/ash -c "/opt/tor/bin/tor -f /opt/tor/etc/tor/torrc"'
