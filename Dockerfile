@@ -25,4 +25,4 @@ RUN apk add -U --virtual deps \
     sed -i 's/#SOCKSPort 9050/SOCKSPort 0.0.0.0:9050/' /opt/tor/etc/tor/torrc && \
     chown tor:tor -R /opt/*
 
-CMD /bin/ash -c 'su - -s /bin/ash -c "/opt/tor/bin/tor -f /opt/tor/etc/tor/torrc"'
+CMD /bin/ash -c 'su - -s /bin/ash tor -c "/opt/tor/bin/tor -f /opt/tor/etc/tor/torrc"'
