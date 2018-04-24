@@ -8,8 +8,8 @@ RUN addgroup tor && \
 
 RUN apk add -U --virtual deps \
         gcc g++ make libevent-dev \
-        libressl-dev zlib-dev && \
-    apk add libevent && \
+        openssl-dev zlib-dev && \
+    apk add libevent libssl1.0 && \
     cd ~ && \
     wget https://www.torproject.org/dist/tor-$TOR_VER.tar.gz && \
     tar xf tor-$TOR_VER.tar.gz && \
