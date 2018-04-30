@@ -8,8 +8,11 @@ RUN addgroup tor && \
 
 RUN apk add -U --virtual deps \
         gcc g++ make libevent-dev \
-        openssl-dev zlib-dev && \
-    apk add libevent libssl1.0 && \
+        openssl-dev zlib-dev \
+        linux-headers xz-dev \
+        zstd-dev libcap-dev && \
+    apk add libevent libssl1.0 \
+        xz zstd libcap && \
     cd ~ && \
     wget https://www.torproject.org/dist/tor-$TOR_VER.tar.gz && \
     tar xf tor-$TOR_VER.tar.gz && \
@@ -25,4 +28,5 @@ RUN apk add -U --virtual deps \
     sed -i 's/#SOCKSPort 9050/SOCKSPort 0.0.0.0:9050/' /opt/tor/etc/tor/torrc && \
     chown tor:tor -R /opt/*
 
-CMD /bin/ash -c 'su - -s /bin/ash tor -c "/opt/tor/bin/tor -f /opt/tor/etc/tor/torrc"'
+USER tor
+CMD /opt/tor/bin/tor -f /opt/tor/etc/tor/torrc
