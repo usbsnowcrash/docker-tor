@@ -26,6 +26,7 @@ RUN apk add -U --virtual deps \
     apk del --purge deps && \
     cp /opt/tor/etc/tor/torrc.sample /opt/tor/etc/tor/torrc && \
     sed -i 's/#SOCKSPort 9050/SOCKSPort 0.0.0.0:9050/' /opt/tor/etc/tor/torrc && \
+    mkdir -p /opt/tor/var/lib/tor/ && \
     chown tor:tor -R /opt/*
 
 USER tor
